@@ -1,7 +1,7 @@
 from flask import Flask
 from flask import render_template
 from flask_sqlalchemy import SQLAlchemy
-from flask_login import LoginManager, login_required
+from flask_login import LoginManager
 from blueprints import (
 	login,
 	home,
@@ -23,7 +23,7 @@ login_manager.login_message = '你必须登陆后才能访问该页面'
 login_manager.login_message_category = "info"
 
 db = SQLAlchemy(app)
-from models import user
+from models import user, student, teacher
 db.drop_all()
 db.create_all()
 

@@ -1,3 +1,4 @@
+import const
 from flask import (
 	Blueprint,
 	render_template,
@@ -62,11 +63,19 @@ def register():
 			from models import user
 			username = register_form.username.data
 			password = register_form.password.data
+			user_type = register_form.user_type.data
 			if user.get_user(username):
 				flash(MSG_USER_EXIST)
 				return render_template('register.html', form=register_form)
 			else:
-				user.create_user(username=username, password=password)
+				new_user = user.create_user(username=username, password=password, user_type=user_type)
+				if new_user:
+					if user_type == const.UserType.STUDENT.value:
+						from models import student
+						student.create_student(new_user.get_id())
+					else:
+						from models import teacher
+						teacher.create_teacher(new_user.get_id())
 				return render_template('index.html', form=register_form)
 		else:
 			flash(MSG_DATA_INVALID)

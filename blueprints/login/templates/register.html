@@ -10,6 +10,7 @@
         {{ form.username.label }}{{ form.username }}<br/>
         {{ form.password.label }}{{ form.password }}<br/>
         {{ form.confirm_password.label }}{{ form.confirm_password }}<br/>
+        {{ form.user_type.label }}{{ form.user_type }}<br/>
         {{ form.submit }}
     </form>
     {% for message in get_flashed_messages() %}
