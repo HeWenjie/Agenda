@@ -15,4 +15,4 @@ mysql-8.0
 
 ### 运行
 
-py -3 app.py
+.\venv\Scripts\python.exe .\app.py
