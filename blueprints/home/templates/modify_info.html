@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Modify Personal Info</title>
+</head>
+<body>
+    <form action="/home/submit_info" method="post">
+        {{ form.csrf_token() }}
+        {{ form.name.label }}{{ form.name }}<br>
+        {{ form.sex.label }}{{ form.sex }}<br>
+        {{ form.birthday.label }}{{ form.birthday }}<br>
+        {{ form.nation.label }}{{ form.nation }}<br>
+        {{ form.address.label }}{{ form.address }}<br>
+        {{ form.phone.label }}{{ form.phone }}<br>
+        {{ form.submit }}
+    </form>
+</body>
+</html>
