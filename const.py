@@ -4,3 +4,7 @@ import enum
 class UserType(enum.Enum):
 	STUDENT = 'STU'
 	TEACHER = 'TEA'
+
+# COURSE
+COURSE_NAME_MIN_LENGTH = 0
+COURSE_NAME_MAX_LENGTH = 20

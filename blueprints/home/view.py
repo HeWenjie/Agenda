@@ -1,19 +1,18 @@
-from flask_wtf import FlaskForm
-from wtforms import (
-	StringField,
-	SelectField,
-	DateField,
-	SubmitField,
-)
-from wtforms.validators import  (
-	DataRequired,
-)
+import const
+from flask import render_template
+from flask_login import login_required, current_user
+from . import bp
 
-class InfoForm(FlaskForm):
-	name = StringField(label='姓名', validators=[DataRequired()])
-	sex = SelectField(label='性别', validators=[DataRequired()], choices=['男', '女'])
-	birthday = DateField(label='出生日期', validators=[DataRequired()])
-	nation = StringField(label='民族', validators=[DataRequired()])
-	address = StringField(label='家庭地址', validators=[DataRequired()])
-	phone = StringField(label='联系电话', validators=[DataRequired()])
-	submit = SubmitField(label='提交')
+@bp.route('/', methods=['GET'])
+def index():
+	return render_template("index.html")
+
+@bp.route('/home', methods=['GET'])
+@login_required
+def home():
+	user_type = current_user.get_user_type()
+	if user_type == const.UserType.STUDENT.value:
+		return render_template('student_space.html')
+	elif user_type == const.UserType.TEACHER.value:
+		return render_template('teacher_space.html')
+	return render_template('error.html')

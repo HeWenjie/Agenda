@@ -1,0 +1,13 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>创建课程</title>
+</head>
+<body>
+    <form action="/space/create_course" method="POST">
+        {{ form.course_name.label }}{{ form.course_name }}<br/>
+        {{ form.submit }}
+    </form>
+</body>
+</html>

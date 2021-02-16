@@ -1,28 +1,13 @@
 import const
-from flask import (
-	Blueprint,
-	render_template,
-	request,
-	redirect,
-	url_for,
-	flash,
-)
-from .view import (
-	LoginForm,
-	RegisterForm,
-)
-from flask_login import (
-	login_user,
-	logout_user,
-	login_required,
-)
+from flask import render_template, request, redirect, url_for, flash
+from flask_login import login_user, logout_user, login_required
+from . import bp
+from .form import LoginForm, RegisterForm
 
 MSG_USER_EXIST = '用户已存在'
 MSG_USER_NO_EXIST = '用户不存在'
 MSG_DATA_INVALID = '输入有误'
 MSG_VERIFY_PWD_FAIL = '密码不正确'
-
-bp = Blueprint('login', __name__, template_folder='templates', static_folder='static')
 
 @bp.route('/login', methods=['GET', 'POST'])
 def login():
@@ -39,7 +24,10 @@ def login():
 
 			if _user.verify_password(password):
 				login_user(_user)
-				return redirect(url_for('home.index'))
+				if _user.is_teacher():
+					return redirect(url_for('space.teacher_space'))
+				else:
+					return redirect(url_for('space.student_space'))
 			else:
 				flash(MSG_VERIFY_PWD_FAIL)
 				return render_template('login.html', form=login_form)
@@ -76,7 +64,7 @@ def register():
 					else:
 						from models import teacher
 						teacher.create_teacher(new_user.get_id())
-				return render_template('index.html', form=register_form)
+				return redirect(url_for('passport.login'))
 		else:
 			flash(MSG_DATA_INVALID)
 			return render_template('register.html', form=register_form)

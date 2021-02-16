@@ -10,8 +10,14 @@ class Teacher(db.Model):
 	# foreign key
 	user_id = db.Column(db.Integer, db.ForeignKey('user.user_id'))
 
+	# relationship
+	courses = db.relationship('Course', backref='teacher')
+
 	def __init__(self, user_id):
 		self.user_id = user_id
+
+	def get_id(self):
+		return self.id
 
 def create_teacher(user_id):
 	try:

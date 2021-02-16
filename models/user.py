@@ -1,10 +1,7 @@
 import logging
+import const
 from app import db
-from app import login_manager
-from werkzeug.security import (
-	generate_password_hash,
-	check_password_hash,
-)
+from werkzeug.security import generate_password_hash, check_password_hash
 from flask_login import UserMixin
 
 USERNAME_MAX_LENGTH = 20
@@ -42,7 +39,12 @@ class User(UserMixin, db.Model):
 	def get_user_type(self):
 		return self.user_type
 
-@login_manager.user_loader
+	def is_teacher(self):
+		return self.user_type == const.UserType.TEACHER.value
+
+	def is_student(self):
+		return self.user_type == const.UserType.STUDENT.value
+
 def load_user(user_id):
 	return User.query.get(int(user_id))
 
@@ -67,5 +69,4 @@ def verify_user(username, password):
 		return False
 
 	return login_user.verify_password(password)
-
 
