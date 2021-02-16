@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>查看所有课程</title>
+</head>
+
+<body>
+<ul>
+    {% for course in courses %}
+        <li>课程名：{{ course.course_name }} 老师：{{ course.teacher.name }} <a href="{{ url_for('space.choose_course', course_id=course.id) }}">选择课程</a></li>
+    {% endfor %}
+</ul>
+</body>
+
+</html>

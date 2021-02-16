@@ -18,9 +18,9 @@ db = SQLAlchemy(app)
 login_manager = LoginManager(app)
 
 # clear table
-from models import user, student, teacher, course
-db.drop_all()
-db.create_all()
+from models import user, student, teacher, course, course_student
+# db.drop_all()
+# db.create_all()
 
 login_manager.login_view = 'passport.login'
 login_manager.login_message = '你必须登陆后才能访问该页面'

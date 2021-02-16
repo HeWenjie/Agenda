@@ -11,6 +11,7 @@ class Teacher(db.Model):
 	user_id = db.Column(db.Integer, db.ForeignKey('user.user_id'))
 
 	# relationship
+	user = db.relationship('User', backref='teacher')
 	courses = db.relationship('Course', backref='teacher')
 
 	def __init__(self, user_id):

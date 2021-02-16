@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>查看已选课程</title>
+</head>
+
+<body>
+<ul>
+    {% for course in courses %}
+        <li>课程名：{{ course.course_name }} 老师：{{ course.teacher.name }} <a href="{{ url_for('space.delete_course', course_id=course.id) }}">删除课程</a></li>
+    {% endfor %}
+</ul>
+</body>
+
+</html>
