@@ -1,7 +1,7 @@
 from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
 from flask_login import LoginManager
-from blueprints import home, passport, space
+from blueprints import home, passport, space, info
 
 app = Flask(__name__)
 # secret_key
@@ -13,6 +13,7 @@ app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 app.register_blueprint(home.bp, url_prefix='/')
 app.register_blueprint(passport.bp, url_prefix='/passport')
 app.register_blueprint(space.bp, url_prefix='/space')
+app.register_blueprint(info.bp, url_prefix='/info')
 
 db = SQLAlchemy(app)
 login_manager = LoginManager(app)

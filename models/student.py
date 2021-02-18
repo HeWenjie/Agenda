@@ -1,11 +1,19 @@
 from app import db
 
+STUDENT_DEFAULT_MAX_LENGTH = 10
 STUDENT_NAME_MAX_LENGTH = 20
+STUDENT_SEX_MAX_LENGTH = 10
 
 class Student(db.Model):
 	# field
 	id = db.Column(db.Integer, primary_key=True)
 	name = db.Column(db.String(STUDENT_NAME_MAX_LENGTH))
+	sex = db.Column(db.String(STUDENT_SEX_MAX_LENGTH))
+	native_place = db.Column(db.String(STUDENT_DEFAULT_MAX_LENGTH))
+	political_status = db.Column(db.String(STUDENT_DEFAULT_MAX_LENGTH))
+	major = db.Column(db.String(STUDENT_DEFAULT_MAX_LENGTH))
+	address = db.Column(db.String(STUDENT_DEFAULT_MAX_LENGTH))
+	phone = db.Column(db.String(STUDENT_DEFAULT_MAX_LENGTH))
 
 	# foreign key
 	user_id = db.Column(db.Integer, db.ForeignKey('user.user_id'))

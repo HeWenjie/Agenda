@@ -52,8 +52,26 @@ def delete_course_student(course_id, student_id):
 			return False
 	return False
 
+def delete_course_students_by_course_id(course_id):
+	from models import course
+	cou = course.get_course(course_id)
+	if cou is None:
+		return
+
+	course_student_models = get_course_students_by_course_id(course_id)
+
+	for course_student_model in course_student_models:
+		try:
+			db.session.delete(course_student_model)
+			db.session.commit()
+		except Exception as e:
+			db.session.rollback()
+
 def get_course_student(course_id, student_id):
 	return CourseStudent.query.filter_by(course_id=course_id, student_id=student_id).first()
+
+def get_course_students_by_course_id(course_id):
+	return CourseStudent.query.filter_by(course_id=course_id).all()
 
 def get_student_ids_by_course(course_id):
 	# 查看选择某课程的所有学生

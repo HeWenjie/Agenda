@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>查看选课学生</title>
+</head>
+<body>
+    <ul>
+    {% for student in students %}
+        <li>
+            学生名：{{ student.name }}
+            <a href="{{ url_for('info.teacher_view_student_info', student_id=student.id) }}">查看学生信息</a>
+        </li>
+    {% endfor %}
+</ul>
+</body>
+</html>

@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>查看已创建课程</title>
+</head>
+
+<body>
+<ul>
+    {% for course in courses %}
+        <li>
+            课程名：{{ course.course_name }}
+            <a href="{{ url_for('space.view_course_students', course_id=course.id) }}">查看选课学生</a>
+            <a href="{{ url_for('space.teacher_delete_course', course_id=course.id) }}">删除课程</a>
+        </li>
+    {% endfor %}
+</ul>
+</body>
+
+</html>

@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>个人信息</title>
+</head>
+<body>
+    <form action="/info/submit_student_info" method="POST">
+        {{ form.csrf_token() }}
+        {{ form.name.label }}{{ form.name }}<br/>
+        {{ form.sex.label }}{{ form.sex }}<br/>
+        {{ form.native_place.label }}{{ form.native_place }}<br/>
+        {{ form.political_status.label }}{{ form.political_status }}<br/>
+        {{ form.major.label }}{{ form.major }}<br/>
+        {{ form.address.label }}{{ form.address }}<br/>
+        {{ form.phone.label }}{{ form.phone }}<br/>
+        {{ form.submit }}
+    </form>
+</body>
+</html>

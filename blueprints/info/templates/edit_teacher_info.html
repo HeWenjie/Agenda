@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>个人信息</title>
+</head>
+<body>
+    <form action="/info/submit_teacher_info" method="POST">
+        {{ form.csrf_token() }}
+        {{ form.name.label }}{{ form.name }}<br/>
+        {{ form.submit }}
+    </form>
+</body>
+</html>

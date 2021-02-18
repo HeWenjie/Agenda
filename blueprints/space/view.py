@@ -1,6 +1,6 @@
 from . import bp
-from . import ensure_teacher, ensure_student
 from .form import CreateCourseForm
+from blueprints import ensure_teacher, ensure_student
 from flask import render_template, request, redirect, url_for
 from flask_login import login_required, current_user
 
@@ -27,6 +27,37 @@ def create_course():
 		return redirect(url_for('space.teacher_space'))
 	else:
 		return render_template('create_course.html', form=create_course_form)
+
+@bp.route('/view_created_course', methods=['GET', 'POST'])
+@login_required
+@ensure_teacher
+def view_created_course():
+	tea = current_user.teacher[0]
+	courses = tea.courses
+	return render_template('view_created_course.html', courses=courses)
+
+@bp.route('/view_course_students/<course_id>')
+@login_required
+@ensure_teacher
+def view_course_students(course_id):
+	from models import course_student, student
+	student_ids = course_student.get_student_ids_by_course(course_id)
+	students = []
+	for student_id in student_ids:
+		stu = student.get_student(student_id)
+		if not stu:
+			continue
+		students.append(stu)
+	return render_template('view_course_students.html', students=students)
+
+@bp.route('/teacher_delete_course/<course_id>')
+@login_required
+@ensure_teacher
+def teacher_delete_course(course_id):
+	from models import course_student, course
+	course_student.delete_course_students_by_course_id(course_id)
+	course.delete_course(course_id)
+	return redirect(url_for('space.view_created_course'))
 
 @bp.route('/delete_course/<course_id>')
 @login_required
